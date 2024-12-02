@@ -26,7 +26,7 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
 
   constructor() {
     super();
-    this.button = WiredButton;
+    this.button = false;
     this.title = "rpg-me";
     this.height = 0;
     this.width = 0;
