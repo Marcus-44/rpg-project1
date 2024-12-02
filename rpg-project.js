@@ -25,12 +25,8 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
 
   constructor() {
     super();
-    this.title = "";
-    this.t = this.t || {};
-    this.t = {
-      ...this.t,
-      title: "Title",
-    };
+    this.button = WiredButton;
+    this.title = "rpg-me";
     
     
     this.registerLocalization({
@@ -47,6 +43,10 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     return {
       ...super.properties,
       title: { type: String },
+      button: { type: Boolean },
+
+
+
     };
   }
 
@@ -74,7 +74,7 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
   render() {
     return html`
 <div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
+  <h3><span>${this.title}</span></h3>
   <slot></slot>
 </div>`;
   }
