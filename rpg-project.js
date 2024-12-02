@@ -109,7 +109,11 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
 <div class="wrapper">
   <h3><span>${this.title}</span></h3>
   <wired-button>Wired Button!</wired-button>
-</div>`;
+  <wired-button elevation="3">Elevation</wired-button>
+</div>
+<wired-button>Click me</wired-button>
+`;
+
   }
 
   /**
