@@ -7,6 +7,7 @@ import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
 import { WiredButton } from 'wired-elements/lib/wired-button.js';
 import { WiredInput } from 'wired-elements/lib/wired-input.js';
+import "@haxtheweb/rpg-character/rpg-character.js";
 
 
 
@@ -27,6 +28,22 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     super();
     this.button = WiredButton;
     this.title = "rpg-me";
+    this.height = 0;
+    this.width = 0;
+    this.accessories = 0;
+    this.base = 0;
+    this.face = 0;
+    this.faceItem = 0;
+    this.hair = 0;
+    this.pants = 0;
+    this.shirt = 0;
+    this.skin = 0;
+    this.seed = null;
+    this.walking = false;
+    this.hat = 0;
+    this.hatColor = 0;
+    this.fire = false;
+    
     
     
     this.registerLocalization({
@@ -43,7 +60,23 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     return {
       ...super.properties,
       title: { type: String },
-      button: { type: Boolean },
+      button: { type: String },
+      height: { type: Number },
+      width: { type: Number },
+      base: { type: Number },
+      face: { type: Number },
+      faceItem: { type: Number },
+      hair: { type: Number },
+      pants: { type: Number },
+      shirt: { type: Number },
+      skin: { type: Number },
+      hatColor: { type: Number },
+      hat: { type: Number },
+      seed: { type: String, reflect: true },
+      fire: { type: Boolean, reflect: true },
+      walking: { type: Boolean, reflect: true },
+      accessories: { type: Number },
+
 
 
 
@@ -76,6 +109,7 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
 <div class="wrapper">
   <h3><span>${this.title}</span></h3>
   <slot></slot>
+  <wired-button>Wired Button!</wired-button>
 </div>`;
   }
 
