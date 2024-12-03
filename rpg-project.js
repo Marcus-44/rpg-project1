@@ -5,8 +5,7 @@
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
-import { WiredButton } from 'wired-elements/lib/wired-button.js';
-import { WiredInput } from 'wired-elements/lib/wired-input.js';
+import { WiredButton, WiredInput } from "wired-elements";
 import "@haxtheweb/rpg-character/rpg-character.js";
 
 
@@ -27,7 +26,7 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
   constructor() {
     super();
     this.button = false;
-    this.title = "rpg-me";
+    this.title = "Design Your Character";
     this.height = 0;
     this.width = 0;
     this.accessories = 0;
