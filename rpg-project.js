@@ -41,6 +41,7 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     this.hat = 0;
     this.hatColor = 0;
     this.fire = false;
+    this.circle = false;
     
     
     
@@ -72,6 +73,7 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
       seed: { type: String },
       fire: { type: Boolean, reflect: true },
       walking: { type: Boolean, reflect: true },
+      circle: { type: Boolean, reflect: true },
       accessories: { type: Number },
       
 
@@ -91,10 +93,16 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
         background-color: var(--ddd-theme-accent);
         font-family: var(--ddd-font-navigation);
       }
+
+      wired-item {
+        opacity: 1;
+      }
+
       .wrapper {
         margin: var(--ddd-spacing-2);
         padding: var(--ddd-spacing-4);
         display: infline-flex;
+        flex-direction: column;
       }
       h3 span {
         font-size: var(--rpg-project-label-font-size, var(--ddd-font-size-s));
@@ -104,6 +112,12 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
         margin-bottom: var(--ddd-spacing-2);
       }
 
+      .control-panel {
+        background: var(---ddd-theme-default-blue);
+        padding: var(--ddd-spacing-4);
+        width: 300px;
+      }
+
 
     `];
   }
@@ -111,6 +125,14 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
   inputChange(property, event) {
     if (event.target.tagName.toLowerCase() === 'wired-checkbox') {
       this[property] = event.target.checked;
+    } else if (property === 'base') {
+      const value = event.detail.selected;
+      this[property] = value === "5" ? 5 : 1;
+      this.requestUpdate();
+    } else if (property === 'hat') {
+      this[property] = event.detail.selected;
+    } else if (event.detail?.selected !== undefined) {
+      this[property] = Number(event.detail.selected);
     } else {
       this[property] = Number(event.target.value);
     }
@@ -142,15 +164,79 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     height="300"
     width="300"
     ></rpg-character>
-</div>
+
 
 <div>Seed: ${this.seed}</div>
 
-<div class="input">
-  <label for="accessories">Accessories</label>
-  <wired-slider id="accessories" min="0" max="9" .value="${this.accessories}" @change="${(e) => this.inputChange('accessories', e)}"></wired-slider>
-</div>
+<div class="control-panel">
+  <div class="input">
+    <label>Character Option</label>
+    <wired-combo id="base" .value="${this.base}" @selected="${(e) => this.inputChange('base', e)}">
+      <wired-item value="1">Male</wired-item>
+      <wired-item value="5">Female</wired-item>
+    </wired-combo>
+  </div>
+  
+  <div class="input">
+    <label for="accessories">Accessories</label>
+    <wired-slider id="accessories" min="0" max="9" .value="${this.accessories}" @change="${(e) => this.inputChange('accessories', e)}"></wired-slider>
+  </div>
 
+  <div class="input">
+    <label>Shirt</label>
+    <wired-slider id="shirt" min="0" max="9" .value="${this.shirt}" @change="${(e) => this.inputChange('shirt', e)}"></wired-slider>
+  </div>
+
+  <div class="input">
+    <label>Pants</label>
+    <wired-slider id="pants" min="0" max="9" .value="${this.pants}" @change="${(e) => this.inputChange('pants', e)}"></wired-slider>
+  </div>
+
+  <div class="input">
+    <label>Skin Tone</label>
+    <wired-slider id="skin" min="0" max="9" .value="${this.skin}" @change="${(e) => this.inputChange('skin', e)}"></wired-slider>
+  </div>
+
+  <div class="input">
+    <label>Hair Style</label>
+    <wired-slider id="hair" min="0" max="9" .value="${this.hair}" @change="${(e) => this.inputchange('hair', e)}"></wired-slider>
+  </div>
+
+  <div class="input">
+    <label>Face</label>
+    <wired-slider id="face" min="0" max="5" .value="${this.face}" @change="${(e) => this.inputChange('face', e)}"></wired-slider>
+  </div>
+
+  <div class="input">
+    <label>Face Item</label>
+    <wired-slider id="faceItem" min="0" max="9" .value="${this.faceItem}" @change="${(e) => this.inputChange('faceItem', e)}"></wired-slider>
+  </div>
+
+  <div class="input">
+    <label>Hat Color</label>
+    <wired-slider id="hatColor" min="0" max="9" .value="${this.hatColor}" @change="${(e) => this.inputChange('hatColor', e)}"></wired-slider>
+  </div>
+
+  <div class="input">
+    <label>Hat Type</label>
+    <wired-combo id="hat" .value="${this.hat}" @selected="${(e) => this.inputchange('hat', e)}">
+      <wired-item value="none">None</wired-item>
+      <wired-item value="bunny">Bunny</wired-item>
+      <wired-item value="coffee">Coffee</wired-item>
+      <wired-item value="construction">Construction</wired-item>
+      <wired-item value="cowboy">Cowboy</wired-item>
+      <wired-item value="education">Education</wired-item>
+      <wired-item value="knight">Knight</wired-item>
+      <wired-item value="ninja">Ninja</wired-item>
+      <wired-item value="party">Party</wired-item>
+      <wired-item value="pirate">Pirate</wired-item>
+      <wired-item value="watermelon">Watermelon</wired-item>
+    </wired-combo>
+  </div>
+
+
+</div>
+</div>
 
 <div class="input">
     <wired-checkbox ?checked="${this.fire}" @change="${(e) => this.inputChange('fire', e)}">Fire</wired-checkbox>
@@ -158,6 +244,10 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
 
 <div class="input">
     <wired-checkbox ?checked="${this.walking}" @change="${(e) => this.inputChange('walking', e)}">Walking</wired-checkbox>
+</div>
+
+<div class="input">
+    <wired-checkbox ?checked="${this.circle}" @change="${(e) => this.inputChange('circle', e)}">Circle</wired-checkbox>
 </div>
 
 `;
