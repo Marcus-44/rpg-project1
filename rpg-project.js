@@ -36,7 +36,7 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     this.pants = 0;
     this.shirt = 0;
     this.skin = 0;
-    this.seed = '';
+    this.seed = '00000000';
     this.walking = false;
     this.hat = 0;
     this.hatColor = 0;
@@ -99,9 +99,10 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
       }
 
       .wrapper {
-        margin: var(--ddd-spacing-2);
+        margin: var(--ddd-spacing-3);
         padding: var(--ddd-spacing-4);
         display: infline-flex;
+
         
       }
       h3 span {
@@ -121,6 +122,11 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
 
       .share {
         margin-top: var(--ddd-spacing-4);
+      }
+
+      .seed {
+        margin-top: var(--ddd-spacing-4);
+        margin-right: var(--ddd-spacing-4);
       }
 
 
@@ -146,10 +152,15 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     } else {
       this[property] = Number(event.target.value);
     }
+
+    if (property !== 'hat' && property !== 'fire' && property!== 'walking' && property !== 'circle') {
+      this.generateSeed();
+    }
+    this.requestUpdate();
   }
 
   generateSeed() {
-    this.seed = `${this.accessories}${this.base}${this.face}${this.faceItem}${this.hair}${this.pants}${this.shirt}${this.skin}${this.hatColor}0`;
+    this.seed = `${this.accessories}${this.base}${this.face}${this.faceItem}${this.hair}${this.pants}${this.shirt}${this.skin}${this.hatColor}`;
     
   }
 
@@ -189,7 +200,7 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     ></rpg-character>
 
 
-<div>Seed: ${this.seed}</div>
+<div class="seed">Seed: ${this.seed}</div>
 
 <div class="control-panel">
   <div class="input">
