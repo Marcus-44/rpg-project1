@@ -102,24 +102,30 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
         margin: var(--ddd-spacing-2);
         padding: var(--ddd-spacing-4);
         display: infline-flex;
-        flex-direction: column;
+        
       }
       h3 span {
         font-size: var(--rpg-project-label-font-size, var(--ddd-font-size-s));
       }
 
       .input {
-        margin-bottom: var(--ddd-spacing-2);
+        margin-left: var(--ddd-spacing-2);
       }
 
       .control-panel {
         background: var(---ddd-theme-default-blue);
         padding: var(--ddd-spacing-4);
         width: 300px;
+        justify-content: center;
       }
 
 
     `];
+  }
+
+  validHat(hat) {
+    const validHats = ['none', 'bunny'];
+    return validHats.includes(hat);
   }
 
   inputChange(property, event) {
