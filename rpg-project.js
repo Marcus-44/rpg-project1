@@ -177,6 +177,22 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     
   }
 
+  loadURL() {
+    const params = new URLSearchParams(window.location.search);
+    const seed = params.get('seed');
+    if (seed && seed.length === 10) {
+      this.seed = seed;
+      
+    }
+  }
+
+  updateURL() {
+    const params = new URLSearchParams();
+    params.set('seed', this.seed);
+    const updatedURL = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, '', updatedURL);
+  }
+
   // Lit render the HTML
   render() {
     return html`
