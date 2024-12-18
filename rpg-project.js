@@ -119,6 +119,10 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
         justify-content: center;
       }
 
+      .share {
+        margin-top: var(--ddd-spacing-4);
+      }
+
 
     `];
   }
@@ -146,6 +150,19 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
 
   generateSeed() {
     this.seed = `${this.accessories}${this.base}${this.face}${this.faceItem}${this.hair}${this.pants}${this.shirt}${this.skin}${this.hatColor}0`;
+    
+  }
+
+
+
+  async shareURL() {
+    const URL = window.location.href;
+    try {
+      await navigator.clipboard.writeText(URL);
+      alert('Link copied!');
+    } catch (error) {
+      alert('Share: ' + URL);
+    }
     
   }
 
@@ -255,6 +272,8 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
 <div class="input">
     <wired-checkbox ?checked="${this.circle}" @change="${(e) => this.inputChange('circle', e)}">Circle</wired-checkbox>
 </div>
+
+<wired-button class="share" @click="${this.shareURL}">Share Your Character!</wired-button>
 
 `;
 
