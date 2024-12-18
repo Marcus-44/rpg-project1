@@ -144,6 +144,10 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
 
 <div>Seed: ${this.seed}</div>
 
+<div class="input">
+  <label for="accessories">Accessories</label>
+  <wired-slider id="accessories" min="0" max="9" .value="${this.accessories}" @change="${(e) => this.inputChange('accessories', e)}"></wired-slider>
+</div>
 
 
 <div class="input">
