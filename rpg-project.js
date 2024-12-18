@@ -25,7 +25,6 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
 
   constructor() {
     super();
-    this.button = false;
     this.title = "Design Your Character";
     this.height = 0;
     this.width = 0;
@@ -37,11 +36,12 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     this.pants = 0;
     this.shirt = 0;
     this.skin = 0;
-    this.seed = null;
+    this.seed = '';
     this.walking = false;
     this.hat = 0;
     this.hatColor = 0;
     this.fire = false;
+    
     
     
     
@@ -60,8 +60,6 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
       ...super.properties,
       title: { type: String },
       button: { type: String },
-      height: { type: Number },
-      width: { type: Number },
       base: { type: Number },
       face: { type: Number },
       faceItem: { type: Number },
@@ -71,10 +69,11 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
       skin: { type: Number },
       hatColor: { type: Number },
       hat: { type: Number },
-      seed: { type: String, reflect: true },
+      seed: { type: String },
       fire: { type: Boolean, reflect: true },
       walking: { type: Boolean, reflect: true },
       accessories: { type: Number },
+      
 
 
 
@@ -95,11 +94,29 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
       .wrapper {
         margin: var(--ddd-spacing-2);
         padding: var(--ddd-spacing-4);
+        display: infline-flex;
       }
       h3 span {
         font-size: var(--rpg-project-label-font-size, var(--ddd-font-size-s));
       }
+
+      .input {
+        margin-bottom: var(--ddd-spacing-2);
+      }
+
+
     `];
+  }
+
+  inputChange(property, event) {
+    if (event.target.tagName.toLowerCase() === 'wired-checkbox') {
+      this[property] = event.target.checked;
+    }
+  }
+
+  generateSeed() {
+    this.seed = `${this.accessories}${this.base}${this.face}${this.faceItem}${this.hair}${this.pants}${this.shirt}${this.skin}${this.hatColor}0`;
+    
   }
 
   // Lit render the HTML
@@ -107,7 +124,34 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
     return html`
 <div class="wrapper">
   <h3><span>${this.title}</span></h3>
-  <rpg-character></rpg-character>
+  <rpg-character 
+    ?fire="${this.fire}"
+    ?walking="${this.walking}"
+    accessories="${this.accessories}"
+    base="${this.base}"
+    face="${this.face}"
+    faceItem="${this.faceItem}"
+    hair="${this.hair}"
+    pants="${this.pants}"
+    shirt="${this.shirt}"
+    skin="${this.skin}"
+    hat="${this.hat}"
+    hatColor="${this.hatColor}"
+    height="300"
+    width="300"
+    ></rpg-character>
+</div>
+
+<div>Seed: ${this.seed}</div>
+
+
+
+<div class="input">
+    <wired-checkbox ?checked="${this.fire}" @change="${(e) => this.inputChange('fire', e)}">Fire</wired-checkbox>
+</div>
+
+<div class="input">
+    <wired-checkbox ?checked="${this.walking}" @change="${(e) => this.inputChange('walking', e)}">Walking</wired-checkbox>
 </div>
 
 `;
