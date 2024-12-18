@@ -111,6 +111,8 @@ export class RpgProject extends DDDSuper(I18NMixin(LitElement)) {
   inputChange(property, event) {
     if (event.target.tagName.toLowerCase() === 'wired-checkbox') {
       this[property] = event.target.checked;
+    } else {
+      this[property] = Number(event.target.value);
     }
   }
 
